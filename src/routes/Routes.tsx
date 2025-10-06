@@ -1,15 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import About from "../pages/About";
-import Contact from "../pages/Contact";
+import About from "../pages/Public/About/About";
+import Contact from "../pages/Public/Contact/Contact";
 import NotFound from "../pages/NotFound";
-import Home from "../pages/Home";
-import AdminRoute from "./AdminRoutes";
-import AdminDashboard from "@/pages/Admin/AdminDashboard";
-import Login from "@/pages/Login";
-import Signup from "@/pages/Signup";
+
+import AdminRoute from "./AdminAuthRoutes";
+import AdminDashboard from "@/pages/Admin/Dashboard/AdminDashboard";
+import Login from "@/pages/Auth/Login";
+import Signup from "@/pages/Auth/Signup";
 import Form from "@/pages/Form";
-import Services from "@/pages/Services";
+import Services from "@/pages/Public/Services/Services";
+import Home from "@/pages/Public/Home/Home";
 
 const routes = createBrowserRouter([
   {

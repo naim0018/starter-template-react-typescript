@@ -1,16 +1,34 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import type { RootState } from "../store/store";
+import AdminDashboard from "@/pages/Admin/Dashboard/AdminDashboard";
+import Settings from "@/pages/Admin/Settings/Settings";
+import Support from "@/pages/Admin/Support/Support";
+import { RiDashboardFill, RiSettings3Fill } from "react-icons/ri";
+import { BiSupport } from "react-icons/bi";
 
-const AdminRoute = () => {
-  const user = useSelector((state: RootState) => state.auth.user);
 
-  // Check if the user is logged in and is an admin
-  if (!user || user.role !== "admin") {
-    return <Navigate to="/login" replace />;
-  }
-
-  return <Outlet />;
-};
-
-export default AdminRoute;
+export const adminRoutes = [
+    {
+        path:"/admin",
+        element:<AdminDashboard/>,
+        children: [
+            {
+                icon: <RiDashboardFill />,
+                label:"Dashboard",
+                index:true,
+                path:"dashboard",
+                element:<AdminDashboard/>
+            },
+            {
+                icon: <BiSupport />,
+                label:"Support",
+                path:"support",
+                element:<Support/>
+            },
+            {
+                icon: <RiSettings3Fill />,
+                label:"Settings",
+                path:"settings",
+                element:<Settings/>
+            }
+        ]
+    }
+]

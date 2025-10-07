@@ -16,7 +16,9 @@ export const publicRoutes = [
         element: <About />,
         children:[
             {
-                path:'about2'
+              label:"About 2",  
+              path:'about2'
+
             }
         ]
       },

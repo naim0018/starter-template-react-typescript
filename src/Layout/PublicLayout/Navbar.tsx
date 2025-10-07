@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { logout } from "@/store/Slices/AuthSlice/authSlice";
+import NavItems from "./NavItems";
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -38,30 +39,7 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-4">
-            <Link
-              to="/"
-              className="text-white hover:bg-website-color-lightGray hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className="text-white hover:bg-website-color-lightGray hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-            >
-              About
-            </Link>
-            <Link
-              to="/services"
-              className="text-white hover:bg-website-color-lightGray hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Services
-            </Link>
-            <Link
-              to="/contact"
-              className="text-white hover:bg-website-color-lightGray hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Contact
-            </Link>
+          <NavItems/>
 
             <Popover>
               <PopoverTrigger>

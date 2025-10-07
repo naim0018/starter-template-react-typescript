@@ -1,9 +1,6 @@
 import CommonWrapper from "@/common/CommonWrapper";
 
-
-
 const Home = () => {
-
 
   return (
     <CommonWrapper>

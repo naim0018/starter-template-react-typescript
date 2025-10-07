@@ -14,7 +14,6 @@ const Footer: React.FC = () => {
               applications with modern technologies.
             </p>
           </div>
-
           {/* Quick Links Section */}
           <div>
             <h3 className="text-lg font-bold mb-4">Quick Links</h3>

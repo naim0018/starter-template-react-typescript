@@ -11,6 +11,11 @@ export const adminRoutes = [
       index:true,
       path: "dashboard",
       element: <AdminDashboard />,
+      children:[
+        {
+          label:"User"
+        }
+      ]
     },
     {
       icon: <BiSupport />,

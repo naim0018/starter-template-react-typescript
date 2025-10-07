@@ -8,7 +8,6 @@ export const routesGenerator = (routes : RouteTypes[])=>{
                element:item.element
            })
        }
-   
        if(item.children){
            item.children.forEach(child =>{
                acc.push({

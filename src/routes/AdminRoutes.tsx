@@ -4,31 +4,25 @@ import Support from "@/pages/Admin/Support/Support";
 import { RiDashboardFill, RiSettings3Fill } from "react-icons/ri";
 import { BiSupport } from "react-icons/bi";
 
-
 export const adminRoutes = [
     {
-        path:"/admin",
-        element:<AdminDashboard/>,
-        children: [
-            {
-                icon: <RiDashboardFill />,
-                label:"Dashboard",
-                index:true,
-                path:"dashboard",
-                element:<AdminDashboard/>
-            },
-            {
-                icon: <BiSupport />,
-                label:"Support",
-                path:"support",
-                element:<Support/>
-            },
-            {
-                icon: <RiSettings3Fill />,
-                label:"Settings",
-                path:"settings",
-                element:<Settings/>
-            }
-        ]
-    }
-]
+      icon: <RiDashboardFill />,
+      label: "Dashboard",
+      index:true,
+      path: "dashboard",
+      element: <AdminDashboard />,
+    },
+    {
+      icon: <BiSupport />,
+      label: "Support",
+      path: "support",
+      element: <Support />,
+    },
+    {
+      icon: <RiSettings3Fill />,
+      label: "Settings",
+      path: "settings",
+      element: <Settings />,
+    },
+  
+];

@@ -1,5 +1,6 @@
 import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import NavItems from "./NavItems";
 
 const Footer: React.FC = () => {
   return (
@@ -17,28 +18,8 @@ const Footer: React.FC = () => {
           {/* Quick Links Section */}
           <div>
             <h3 className="text-lg font-bold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="/" className="hover:text-gray-300">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="/about" className="hover:text-gray-300">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="/services" className="hover:text-gray-300">
-                  Services
-                </a>
-              </li>
-              <li>
-                <a href="/contact" className="hover:text-gray-300">
-                  Contact
-                </a>
-              </li>
-            </ul>
+            <NavItems className="grid items-start justify-start gap-4 " 
+            classNameC="px-0!" classNameNC="px-0!"/>
           </div>
 
           {/* Social Media Section */}
@@ -104,8 +85,8 @@ const Footer: React.FC = () => {
 
         {/* Copyright Section */}
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
-          <p className="text-sm">
-            &copy; {new Date().getFullYear()} Sazzad Mahim. All rights reserved.
+          <p className="text-sm text-white">
+            &copy; {new Date().getFullYear()}
           </p>
         </div>
       </div>

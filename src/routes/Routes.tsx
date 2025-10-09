@@ -8,6 +8,8 @@ import { adminRoutes } from "./AdminRoutes";
 import { publicRoutes } from "./PublicRoutes";
 import NotFound from "@/pages/NotFound";
 import { routesGenerator } from "@/utils/Generator/RoutesGenerator";
+import DashboardLayout from "@/Layout/DashboardLayout/DashboardLayout";
+import AdminDashboard from "@/pages/Admin/Dashboard/AdminDashboard";
 
 const routes = createBrowserRouter([
   {
@@ -31,7 +33,12 @@ const routes = createBrowserRouter([
   },
   {
     path:"/admin",
+    element:<DashboardLayout/>,
     children: [
+      {
+        index:true,
+        element:<AdminDashboard/>
+      },
       ...routesGenerator(adminRoutes)
     ],
   },

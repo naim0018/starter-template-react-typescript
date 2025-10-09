@@ -9,12 +9,12 @@ import { publicRoutes } from "@/routes/PublicRoutes";
 import NavbarGenerator from "@/utils/Generator/NavbarGenerator";
 import { NavLink } from "react-router-dom";
 
-const NavItems = () => {
+const NavItems = ({className,classNameNC,classNameC}:{className?:string,classNameNC?:string,classNameC?:string}) => {
   const navbarItems = NavbarGenerator(publicRoutes);
 
   return (
     <NavigationMenu >
-      <NavigationMenuList className="">
+      <NavigationMenuList className={`${className}`}>
         {navbarItems.map((item) => (
           <NavigationMenuItem key={item.path} className=""> 
             {item.children && item.children.length > 0 ? (
@@ -30,7 +30,7 @@ const NavItems = () => {
                     <NavLink
                       key={child.path}
                       to={child.path || "#"}
-                      className={({isActive})=>`${isActive ? "border-b-2 " : ""} text-center p1 px-5 py-2 no-underline text-white`}
+                      className={({isActive})=>`${isActive ? "border-b-2 " : ""}  text-center p1 px-5 py-2 no-underline text-white ${classNameC}`}
                     >
                       {child.label}
                     </NavLink>
@@ -41,7 +41,7 @@ const NavItems = () => {
               // Simple link (no children)
               <NavLink
                 to={item.path || "#"}
-                className={({isActive})=>`${isActive ? "border-b-2 " : ""} text-center p1 px-5 py-2 no-underline text-white`}
+                className={({isActive})=>`${isActive ? "border-b-2 " : ""}  p1 px-5 py-2 no-underline text-white ${classNameNC}`}
               >
                 {item.label}
               </NavLink>

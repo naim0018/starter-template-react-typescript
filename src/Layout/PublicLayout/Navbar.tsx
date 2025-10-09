@@ -40,7 +40,6 @@ const Navbar: React.FC = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-4">
           <NavItems/>
-
             <Popover>
               <PopoverTrigger>
                 <UserAvatar userName="Mahim" />
@@ -55,7 +54,6 @@ const Navbar: React.FC = () => {
               </PopoverContent>
             </Popover>
           </div>
-
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <button

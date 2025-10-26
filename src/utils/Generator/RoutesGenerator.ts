@@ -35,7 +35,7 @@ export interface RouteType {
   children?: RouteType[];
 }
 
-export const RouteGenerator = (routes: RouteType[]): RouteObject[] => {
+export const routesGenerator = (routes: RouteType[]): RouteObject[] => {
   const generate = (items: RouteType[]): RouteObject[] =>
     items.map((item) => {
       const route: RouteObject = {

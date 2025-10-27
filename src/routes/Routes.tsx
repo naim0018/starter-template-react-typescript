@@ -4,7 +4,7 @@ import Login from "@/pages/Auth/Login";
 import Signup from "@/pages/Auth/Signup";
 import Form from "@/pages/Form";
 
-import { adminRoutes } from "./AdminRoutes";
+import  adminRoutes  from "./AdminRoutes";
 import { publicRoutes } from "./PublicRoutes";
 import NotFound from "@/pages/NotFound";
 import { routesGenerator } from "@/utils/Generator/RoutesGenerator";

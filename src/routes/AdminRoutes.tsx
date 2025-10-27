@@ -23,7 +23,7 @@ const ActivityLog = AdminDashboard;
 const Help = AdminDashboard;
 
 
-export const ClientSidebarGroups = [
+export const adminSidebarGroups = [
   {
     label: "Main Menu",
     items: [
@@ -147,9 +147,9 @@ export const ClientSidebarGroups = [
   },
 ];
 
-// For compatibility with existing routesGenerator, we'll flatten the routes
-export const adminRoutes = ClientSidebarGroups.flatMap(group => group.items.map(item => {
-  
+// // For compatibility with existing routesGenerator, we'll flatten the routes
+ const adminRoutes = adminSidebarGroups.flatMap(group => group.items.map(item => {
+    console.log(group)
   if (item.children) {
     return [
       {
@@ -173,4 +173,5 @@ export const adminRoutes = ClientSidebarGroups.flatMap(group => group.items.map(
 
 }));
 
+export default adminRoutes
 

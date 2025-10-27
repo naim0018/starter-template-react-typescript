@@ -1,7 +1,7 @@
 
 
 
-import { ClientSidebarGroups } from "@/routes/AdminRoutes";
+import { adminSidebarGroups } from "@/routes/AdminRoutes";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
@@ -11,7 +11,7 @@ const Sidebar = () => {
         Admin Panel
       </div>
       <nav className="flex-1 p-4 space-y-2">
-        {ClientSidebarGroups.map((group, groupIndex) => (
+        {adminSidebarGroups.map((group, groupIndex) => (
           <div key={groupIndex} className="mb-4">
             <h2 className="text-xs font-semibold text-gray-400 uppercase mb-2">
               {group.label}

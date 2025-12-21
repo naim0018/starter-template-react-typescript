@@ -1,10 +1,13 @@
-import { Button } from "@/components/ui/button";
+import WorkInProgress from "@/common/WorkInProgress";
+import CommonWrapper from "@/common/CommonWrapper";
 
 const About = () => {
   return (
-    <div className="h-screen">
-      <Button>About Us Page</Button>
-    </div>
+    <CommonWrapper>
+      <div className="h-[90vh] flex items-center justify-center">
+        <WorkInProgress title="About Us Page" />
+      </div>
+    </CommonWrapper>
   );
 };
 

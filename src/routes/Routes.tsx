@@ -4,20 +4,21 @@ import Login from "@/pages/Auth/Login";
 import Signup from "@/pages/Auth/Signup";
 import Form from "@/pages/Form";
 
-import  adminRoutes  from "./AdminRoutes";
+import { adminRoutes } from "./AdminRoutes";
 import { publicRoutes } from "./PublicRoutes";
 import NotFound from "@/pages/NotFound";
 import { routesGenerator } from "@/utils/Generator/RoutesGenerator";
 import DashboardLayout from "@/Layout/DashboardLayout/DashboardLayout";
 import AdminDashboard from "@/pages/Admin/Dashboard/AdminDashboard";
-
+console.log(publicRoutes);
+console.log(routesGenerator(publicRoutes));
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-     ...routesGenerator(publicRoutes),
-     {
+      ...routesGenerator(publicRoutes),
+      {
         path: "/form",
         element: <Form />,
       },
@@ -32,14 +33,14 @@ const routes = createBrowserRouter([
     ],
   },
   {
-    path:"/admin",
-    element:<DashboardLayout/>,
+    path: "/admin",
+    element: <DashboardLayout />,
     children: [
       {
-        index:true,
-        element:<AdminDashboard/>
+        index: true,
+        element: <AdminDashboard />,
       },
-      ...routesGenerator(adminRoutes)
+      ...routesGenerator(adminRoutes),
     ],
   },
   {

@@ -18,8 +18,11 @@ const Footer: React.FC = () => {
           {/* Quick Links Section */}
           <div>
             <h3 className="text-lg font-bold mb-4">Quick Links</h3>
-            <NavItems className="grid items-start justify-start gap-4 " 
-            classNameC="px-0!" classNameNC="px-0!"/>
+            <NavItems
+              className="grid items-start justify-start gap-4 "
+              classNameC="px-0!"
+              classNameNC="px-0!"
+            />
           </div>
 
           {/* Social Media Section */}

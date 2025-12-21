@@ -1,55 +1,98 @@
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuContent,
-} from "@/components/ui/navigation-menu";
+import { Link, useLocation } from "react-router-dom";
 import { publicRoutes } from "@/routes/PublicRoutes";
-import NavbarGenerator from "@/utils/Generator/NavbarGenerator";
-import { NavLink } from "react-router-dom";
+import { menuGenerator, MenuItem } from "@/utils/Generator/MenuGenerator";
+const NavItems = ({
+  className,
+  classNameNC,
+  classNameC,
+}: {
+  className?: string;
+  classNameNC?: string;
+  classNameC?: string;
+}) => {
+  const location = useLocation();
+  const navbarItems = menuGenerator(publicRoutes);
 
-const NavItems = ({className,classNameNC,classNameC}:{className?:string,classNameNC?:string,classNameC?:string}) => {
-  const navbarItems = NavbarGenerator(publicRoutes);
+  // 🔹 Helper: check if a path is active or a parent of the active path
+  const isPathActive = (path?: string, children?: MenuItem[]) => {
+    if (!path) return false;
+
+    // Exact match or nested match
+    if (
+      location.pathname === path ||
+      location.pathname.startsWith(path + "/")
+    ) {
+      return true;
+    }
+
+    // Any child active
+    if (children?.length) {
+      return children.some((child) =>
+        child.path
+          ? location.pathname === child.path ||
+            location.pathname.startsWith(child.path + "/")
+          : false
+      );
+    }
+
+    return false;
+  };
 
   return (
-    <NavigationMenu >
-      <NavigationMenuList className={`${className}`}>
-        {navbarItems.map((item) => (
-          <NavigationMenuItem key={item.path} className=""> 
-            {item.children && item.children.length > 0 ? (
-              <>
-                {/* Parent trigger */}
-                <NavigationMenuTrigger className="text-white">
-                  {item.label}
-                </NavigationMenuTrigger>
+    <nav className={className}>
+      <ul className="flex gap-4">
+        {navbarItems.map((item) => {
+          const parentActive = isPathActive(item.path, item.children);
 
-                {/* Dropdown for children */}
-                <NavigationMenuContent className="grid gap-2 p-4  shadow-lg rounded-lg min-w-[200px] bg-website-color-green border border-website-color-lightGreen">
-                  {item.children.map((child) => (
-                    <NavLink
-                      key={child.path}
-                      to={child.path || "#"}
-                      className={({isActive})=>`${isActive ? "border-b-2 " : ""}  text-center p1 px-5 py-2 no-underline text-white ${classNameC}`}
-                    >
-                      {child.label}
-                    </NavLink>
-                  ))}
-                </NavigationMenuContent>
-              </>
-            ) : (
-              // Simple link (no children)
-              <NavLink
-                to={item.path || "#"}
-                className={({isActive})=>`${isActive ? "border-b-2 " : ""}  p1 px-5 py-2 no-underline text-white ${classNameNC}`}
-              >
-                {item.label}
-              </NavLink>
-            )}
-          </NavigationMenuItem>
-        ))}
-      </NavigationMenuList>
-    </NavigationMenu>
+          return (
+            <li key={item.path ?? item.label} className="relative group">
+              {/* Parent item */}
+              {item.path ? (
+                <Link
+                  to={item.path}
+                  className={`px-5 py-2 text-white inline-block no-underline ${
+                    parentActive ? "border-b-2" : ""
+                  } ${classNameNC}`}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <span className="px-5 py-2 text-white inline-block cursor-default">
+                  {item.label}
+                </span>
+              )}
+
+              {/* Dropdown */}
+              {item.children && item.children.length > 0 && (
+                <ul className="absolute left-0 top-full hidden min-w-[200px] rounded-lg bg-website-color-green shadow-lg group-hover:block">
+                  {item.children.map((child) => {
+                    const childActive =
+                      child.path &&
+                      (location.pathname === child.path ||
+                        location.pathname.startsWith(child.path + "/"));
+
+                    return (
+                      <li key={child.path}>
+                        <Link
+                          to={child.path || "#"}
+                          className={`block px-5 py-2 text-center text-white hover:bg-website-color-lightGreen no-underline ${
+                            childActive
+                              ? "bg-website-color-lightGreen border-b-2 font-semibold"
+                              : ""
+                          } ${classNameC}`}
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 };
 

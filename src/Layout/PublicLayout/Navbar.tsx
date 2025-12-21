@@ -1,122 +1,96 @@
-import UserAvatar from "@/ui/UserAvatar";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { logout } from "@/store/Slices/AuthSlice/authSlice";
+import UserAvatar from "@/ui/UserAvatar";
 import NavItems from "./NavItems";
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
-  const dispatch = useAppDispatch();
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen((prev) => !prev);
 
   const handleLogout = () => {
     dispatch(logout());
     navigate("/login");
+    setIsOpen(false);
   };
 
   return (
     <nav className="bg-website-color-green shadow-lg">
-      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link to="/" className="text-white text-2xl font-bold">
-              MyApp
-            </Link>
-          </div>
+          <Link to="/" className="text-white text-2xl font-bold">
+            MyApp
+          </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-4">
-          <NavItems/>
-            <Popover>
-              <PopoverTrigger>
-                <UserAvatar userName="Mahim" />
-              </PopoverTrigger>
-              <PopoverContent className="mr-3 bg-website-color-darkGray border-none text-white">
-                <Button
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-6">
+            <NavItems />
+
+            {/* User menu */}
+            <div className="relative group">
+              <UserAvatar userName="User" />
+              <div className="absolute right-0 mt-2 hidden group-hover:block bg-website-color-darkGray rounded-md shadow-lg">
+                <button
                   onClick={handleLogout}
-                  className="bg-website-color-lightGray text-black w-full"
+                  className="block w-full px-4 py-2 text-left text-white hover:bg-website-color-lightGray"
                 >
                   Logout
-                </Button>
-              </PopoverContent>
-            </Popover>
+                </button>
+              </div>
+            </div>
           </div>
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={toggleMenu}
-              type="button"
-              className="text-white hover:text-gray-300 focus:outline-none"
+
+          {/* Mobile toggle */}
+          <button
+            onClick={toggleMenu}
+            className="md:hidden text-white focus:outline-none"
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16m-7 6h7"
-                  />
-                )}
-              </svg>
-            </button>
-          </div>
+              {isOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              )}
+            </svg>
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link
-              to="/"
-              className="text-white block hover:bg-purple-700 px-3 py-2 rounded-md text-base font-medium"
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className="text-white block hover:bg-purple-700 px-3 py-2 rounded-md text-base font-medium"
-            >
-              About
-            </Link>
-            <Link
-              to="/services"
-              className="text-white block hover:bg-purple-700 px-3 py-2 rounded-md text-base font-medium"
-            >
-              Services
-            </Link>
-            <Link
-              to="/contact"
-              className="text-white block hover:bg-purple-700 px-3 py-2 rounded-md text-base font-medium"
-            >
-              Contact
-            </Link>
-          </div>
+        <div className="md:hidden px-4 pb-4 space-y-4">
+          <NavItems
+            className="flex flex-col gap-2"
+            classNameNC="block px-3 py-2 rounded-md hover:bg-website-color-lightGreen"
+            classNameC="block px-3 py-2 rounded-md hover:bg-website-color-lightGreen"
+          />
+
+          <button
+            onClick={handleLogout}
+            className="w-full text-left px-3 py-2 text-white rounded-md hover:bg-website-color-lightGray"
+          >
+            Logout
+          </button>
         </div>
       )}
     </nav>

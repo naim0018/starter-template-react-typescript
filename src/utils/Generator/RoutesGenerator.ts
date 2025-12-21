@@ -1,56 +1,40 @@
-// import { RouteTypes } from "@/types/GeneratorTypes"
-
-// export const routesGenerator = (routes : RouteTypes[])=>{
-//     console.log(routes)
-//     const router =routes.reduce((acc:RouteTypes[],item)=>{
-//        if(item.path && item.element){
-//            acc.push({
-//                path: item.path,
-//                element:item.element
-//            })
-//        }
-//        if(item.children){
-//            item.children.forEach(child =>{
-//                acc.push({
-//                    path:`${item.path}/${child.path}`,
-//                    element:child.element
-//                })
-//            })
-//        }
-//        console.log(acc)
-//        return acc
-//    },[])
-//    return router
-// }
-
+import { JSX } from "react";
 import { RouteObject } from "react-router-dom";
-import { ReactNode } from "react";
 
-export interface RouteType {
-  label?: string;
-  icon?: ReactNode;
+export type RouteItem = {
   path?: string;
   index?: boolean;
-  element?: ReactNode;
-  children?: RouteType[];
-}
+  element: JSX.Element;
+  children?: RouteItem[];
+};
 
-export const routesGenerator = (routes: RouteType[]): RouteObject[] => {
-  console.log(routes)
-  const generate = (items: RouteType[]): RouteObject[] =>
-    items.map((item) => {
-      const route: RouteObject = {
-        path: item.path,
-        index: item.index,
-        element: item.element,
-      };
+type RouteGroup =
+  | {
+      items?: RouteItem[];
+    }
+  | RouteItem;
 
-      if (item.children && item.children.length > 0) {
-        route.children = generate(item.children);
-      }
+const normalizeRoutes = (routes: RouteItem[]): RouteObject[] => {
+  return routes.map((route) => {
+    const normalized: RouteObject = {
+      element: route.element,
+      path: route.path,
+      index: route.index ? true : undefined,
+    };
 
-      return route;
-    });
+    if (route.children && route.children.length > 0) {
+      normalized.children = normalizeRoutes(route.children);
+    }
 
-  return generate(routes);
+    return normalized;
+  });
+};
+
+export const routesGenerator = (input: RouteGroup[]): RouteObject[] => {
+  return input.flatMap((entry) => {
+    if ("items" in entry && entry.items) {
+      return normalizeRoutes(entry.items);
+    }
+    return normalizeRoutes([entry as RouteItem]);
+  });
 };

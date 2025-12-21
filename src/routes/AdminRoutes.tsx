@@ -1,9 +1,21 @@
-import { ChartPie, Backpack, Users, Megaphone, Building2, Store, LayoutGrid, BriefcaseBusiness, FileChartColumnIncreasing, Grid2x2, Clipboard, Info } from "lucide-react";
+import {
+  ChartPie,
+  Backpack,
+  Users,
+  Megaphone,
+  Building2,
+  Store,
+  LayoutGrid,
+  BriefcaseBusiness,
+  FileChartColumnIncreasing,
+  Grid2x2,
+  Clipboard,
+  Info,
+} from "lucide-react";
 import { IoExtensionPuzzleOutline, IoSettingsOutline } from "react-icons/io5";
 
 import AdminDashboard from "@/pages/Admin/Dashboard/AdminDashboard";
 import Settings from "@/pages/Admin/Settings/Settings";
-
 
 // Import new page components (assuming these exist or will be created)
 // For now, I'll use AdminDashboard as a placeholder for new elements if they don't exist.
@@ -22,33 +34,64 @@ const ProjectBuilder = AdminDashboard;
 const ActivityLog = AdminDashboard;
 const Help = AdminDashboard;
 
-
-export const adminSidebarGroups = [
+export const adminRoutes = [
   {
-    label: "Main Menu",
+    group: "Main Menu",
     items: [
       {
         icon: <ChartPie />,
         name: "Overview",
         path: "overview",
         element: <Overview />,
-        children:[
+        children: [
           {
-            name:"User Profile",
-            path:"user-profile",
-            element:<Overview/>
+            icon: <ChartPie />,
+            name: "User Profile1",
+            path: "user-profile1",
+            element: <Overview />,
           },
           {
-            name:"User Profile 2",
-            path:"user-profile",
-            element:<Overview/>
+            icon: <ChartPie />,
+            name: "User Profile 2",
+            path: "user-profile2",
+            element: <Overview />,
           },
           {
-            name:"User Profile 3",
-            path:"user-profile",
-            element:<Overview/>
-          }
-        ]
+            icon: <ChartPie />,
+            name: "User Profile 3",
+            path: "user-profile3",
+            element: <Overview />,
+            children: [
+              {
+                icon: <ChartPie />,
+                name: "User Profile 4",
+                path: "user-profile4",
+                element: <Overview />,
+                children: [
+                  {
+                    icon: <ChartPie />,
+                    name: "User Profile 5",
+                    path: "user-profile5",
+                    element: <Overview />,
+                    children: [
+                      {
+                        name: "User Profile 6",
+                        path: "user-profile6",
+                        element: <Overview />,
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                icon: <ChartPie />,
+                name: "User Profile 7",
+                path: "user-profile7",
+                element: <Overview />,
+              },
+            ],
+          },
+        ],
       },
       {
         icon: <Backpack />,
@@ -65,7 +108,7 @@ export const adminSidebarGroups = [
     ],
   },
   {
-    label: "Favorites",
+    group: "Favorites",
     items: [
       {
         icon: <Megaphone />,
@@ -88,7 +131,7 @@ export const adminSidebarGroups = [
     ],
   },
   {
-    label: "Programs & Projects",
+    group: "Programs & Projects",
     items: [
       {
         icon: <LayoutGrid />,
@@ -103,7 +146,7 @@ export const adminSidebarGroups = [
         element: <ProgramBuilder />,
       },
       {
-        icon: <BriefcaseBusiness/>,
+        icon: <BriefcaseBusiness />,
         name: "Program Name",
         path: "program-name",
         element: <ProgramName />,
@@ -115,7 +158,7 @@ export const adminSidebarGroups = [
         element: <ProjectReview />,
       },
       {
-        icon: <Grid2x2 />,      
+        icon: <Grid2x2 />,
         name: "Project Builder",
         path: "project-builder",
         element: <ProjectBuilder />,
@@ -123,7 +166,7 @@ export const adminSidebarGroups = [
     ],
   },
   {
-    label: "Support",
+    group: "Support",
     items: [
       {
         icon: <Clipboard />,
@@ -138,7 +181,7 @@ export const adminSidebarGroups = [
         element: <Help />,
       },
       {
-        icon: <IoSettingsOutline className="size-6"/>,
+        icon: <IoSettingsOutline className="size-6" />,
         name: "Settings",
         path: "settings",
         element: <Settings />,
@@ -146,32 +189,3 @@ export const adminSidebarGroups = [
     ],
   },
 ];
-
-// // For compatibility with existing routesGenerator, we'll flatten the routes
- const adminRoutes = adminSidebarGroups.flatMap(group => group.items.map(item => {
-    console.log(group)
-  if (item.children) {
-    return [
-      {
-        label: item.name,
-        path: item.path,
-        element: item.element,
-        children: item.children.map(child => ({
-          label: child.name,
-          path: child.path,
-          element: child.element,
-        }))
-      }
-    ]
-  } else {
-    return {
-      label: item.name,
-      path: item.path,
-      element: item.element,
-    }
-  }
-
-}));
-
-export default adminRoutes
-

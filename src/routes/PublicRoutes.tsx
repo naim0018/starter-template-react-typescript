@@ -4,32 +4,37 @@ import Services from "@/pages/Public/Services/Services";
 import Home from "@/pages/Public/Home/Home";
 
 export const publicRoutes = [
-     {
-        label:"Home",
-        index:true,
-        path: "/",
-        element: <Home />,
-      },
+  {
+    label: "Home",
+    index: true,
+    path: "/",
+    element: <Home />,
+  },
+  {
+    label: "About",
+    path: "/about",
+    element: <About />,
+    children: [
       {
-        label:"About",
-        path: "/about",
+        label: "About 2",
+        path: "about2",
         element: <About />,
-        children:[
-            {
-              label:"About 2",  
-              path:'about2'
-
-            }
-        ]
       },
       {
-        label:"Contact",
-        path: "/contact",
-        element: <Contact />,
+        label: "About 3",
+        path: "about3",
+        element: <About />,
       },
-      {
-        label:"Services",
-        path: "/services",
-        element: <Services />,
-      }
-]
+    ],
+  },
+  {
+    label: "Contact",
+    path: "/contact",
+    element: <Contact />,
+  },
+  {
+    label: "Services",
+    path: "/services",
+    element: <Services />,
+  },
+];

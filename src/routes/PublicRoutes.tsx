@@ -2,6 +2,8 @@ import About from "../pages/Public/About/About";
 import Contact from "../pages/Public/Contact/Contact";
 import Services from "@/pages/Public/Services/Services";
 import Home from "@/pages/Public/Home/Home";
+import TableDemo from "@/pages/TableDemo";
+import FormDemo from "@/pages/FormDemo";
 
 export const publicRoutes = [
   {
@@ -36,5 +38,15 @@ export const publicRoutes = [
     label: "Services",
     path: "/services",
     element: <Services />,
+  },
+  {
+    label: "Table Demo",
+    path: "/table-demo",
+    element: <TableDemo />,
+  },
+  {
+    label: "Form Demo",
+    path: "/form-demo",
+    element: <FormDemo />,
   },
 ];

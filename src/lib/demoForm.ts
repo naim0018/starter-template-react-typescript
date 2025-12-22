@@ -1,9 +1,11 @@
-export const fieldsA = [
+import { FieldConfig } from "@/common/DynamicForm/FormFields/FieldTypes";
+
+export const fieldsA: FieldConfig[] = [
   { name: "name", label: "Name", type: "text", required: true },
   { name: "email", label: "Email", type: "email", required: true },
 ];
 
-export const fieldsB = [
+export const fieldsB: FieldConfig[] = [
   { name: "phone", label: "Phone", type: "number", required: true },
   {
     name: "gender",

@@ -4,7 +4,7 @@ import CommonWrapper from "@/common/CommonWrapper";
 const About = () => {
   return (
     <CommonWrapper>
-      <div className="h-[90vh] flex items-center justify-center">
+      <div className="min-h-[90vh] flex items-center justify-center">
         <WorkInProgress title="About Us Page" />
       </div>
     </CommonWrapper>

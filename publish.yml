@@ -12,7 +12,6 @@ jobs:
     name: Publish to npm
     runs-on: ubuntu-latest
     environment: npm-publish
-
     permissions:
       contents: read         # Needed to checkout code
       id-token: write        # Needed for OIDC

@@ -1,6 +1,6 @@
 {
   "name": "new-rsp",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "bin": "./bin/cli.js",
   "description": "React + TypeScript Starter Pack CLI",

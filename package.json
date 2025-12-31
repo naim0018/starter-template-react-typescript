@@ -1,8 +1,32 @@
 {
-  "name": "starter-template",
-  "private": true,
+  "name": "new-rsp",
   "version": "0.0.0",
   "type": "module",
+  "bin": "./bin/cli.js",
+  "description": "React + TypeScript Starter Pack CLI",
+  "author": "naim0018",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naim0018/starter-template-react-typescript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/naim0018/starter-template-react-typescript/issues"
+  },
+  "homepage": "https://github.com/naim0018/starter-template-react-typescript#readme",
+  "keywords": [
+    "react",
+    "typescript",
+    "starter",
+    "template",
+    "rsp",
+    "vite",
+    "redux",
+    "tailwindcss"
+  ],
+  "files": [
+    "bin"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

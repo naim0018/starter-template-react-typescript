@@ -15,6 +15,7 @@ export type RouteItem = {
   icon?: JSX.Element;
   name?: string;
   label?: string;
+  index?: boolean;
 };
 
 export type RouteGroup =
@@ -42,6 +43,11 @@ export const menuGenerator = (
 
     // RouteItem
     const routeItem = route as RouteItem;
+
+    // Skip if no name or label (route exists but won't show in sidebar)
+    if (!routeItem.name && !routeItem.label) {
+      return [];
+    }
 
     // Skip if no element and no children
     if (!routeItem.element && !routeItem.children?.length) {

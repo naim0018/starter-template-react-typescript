@@ -16,6 +16,7 @@ import { IoExtensionPuzzleOutline, IoSettingsOutline } from "react-icons/io5";
 
 import AdminDashboard from "@/pages/Admin/Dashboard/AdminDashboard";
 import Settings from "@/pages/Admin/Settings/Settings";
+import { Outlet } from "react-router-dom";
 
 // Import new page components (assuming these exist or will be created)
 // For now, I'll use AdminDashboard as a placeholder for new elements if they don't exist.
@@ -42,8 +43,14 @@ export const adminRoutes = [
         icon: <ChartPie />,
         name: "Overview",
         path: "overview",
-        element: <Overview />,
+        element: <Outlet />,
         children: [
+          {
+            icon: <ChartPie />,
+            name: "Index",
+            index:true,
+            element: <Overview />,
+          },
           {
             icon: <ChartPie />,
             name: "User Profile1",

@@ -33,6 +33,22 @@ const NavItem = ({
         : "text-white hover:bg-white hover:text-gray-800"
     }`;
 
+  const content = (
+    <>
+      {item.icon}
+      <span className="flex-1 uppercase no-underline!">{item.label}</span>
+      {hasChildren && (
+        <span
+          className={`text-[10px] transition-transform duration-200 ${
+            isHovered ? "rotate-90" : ""
+          }`}
+        >
+          ▶
+        </span>
+      )}
+    </>
+  );
+
   return (
     <div
       className="relative"
@@ -40,22 +56,18 @@ const NavItem = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Parent / Leaf Link */}
-      <NavLink
-        to={item.path || "#"}
-        className={`${itemClasses} cursor-pointer whitespace-nowrap`}
-      >
-        {item.icon}
-        <span className="flex-1 uppercase no-underline!">{item.label}</span>
-        {hasChildren && (
-          <span
-            className={`text-[10px] transition-transform duration-200 ${
-              isHovered ? "rotate-90" : ""
-            }`}
-          >
-            ▶
-          </span>
-        )}
-      </NavLink>
+      {!item.path ? (
+        <div className={`${itemClasses} cursor-default whitespace-nowrap`}>
+          {content}
+        </div>
+      ) : (
+        <NavLink
+          to={item.path}
+          className={`${itemClasses} cursor-pointer whitespace-nowrap`}
+        >
+          {content}
+        </NavLink>
+      )}
 
       {/* Sub-menu: Renders only if hovered AND has children */}
       {hasChildren && isHovered && (

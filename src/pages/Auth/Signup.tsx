@@ -39,7 +39,7 @@ const Signup = () => {
     formData.append("password", data.password);
     if (selectedFile) formData.append("image", selectedFile);
 
-    console.log("Signup Data:", Object.fromEntries(formData));
+    // TODO: Implement actual signup API call
     navigate("/login");
   };
 

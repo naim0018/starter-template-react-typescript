@@ -40,7 +40,26 @@ npm run dev
 -   `npm run dev`: Start the development server.
 -   `npm run build`: Build for production.
 -   `npm run lint`: Run ESLint.
+-   `npm run lint:fix`: Auto-fix linting issues.
+-   `npm run type-check`: Check TypeScript types.
+-   `npm run format`: Format code with Prettier.
+-   `npm run format:check`: Check code formatting.
 -   `npm run preview`: Preview the production build.
+
+## 📚 Documentation
+
+-   **[Setup Guide](./SETUP.md)**: Detailed setup and configuration instructions
+-   **[Architecture](./ARCHITECTURE.md)**: Project structure and design patterns
+-   **[Contributing](./CONTRIBUTING.md)**: Guidelines for contributors
+-   **[Security](./SECURITY.md)**: Security policy and best practices
+
+## 🤝 Contributing
+
+We welcome contributions! Please read our [Contributing Guidelines](./CONTRIBUTING.md) before submitting a PR.
+
+## 🔒 Security
+
+For security issues, please review our [Security Policy](./SECURITY.md).
 
 ## 📄 License
 

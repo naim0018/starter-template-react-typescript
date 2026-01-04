@@ -21,8 +21,8 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data: LoginFormInputs) => {
-    console.log("Login Data:", data);
+  const onSubmit = (_data: LoginFormInputs) => {
+    // TODO: Implement actual login API call with _data
     navigate("/");
   };
 

@@ -1,6 +1,6 @@
 {
   "name": "create-rst",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "bin": "./bin/cli.js",
   "description": "React + TypeScript Starter Pack CLI",
@@ -65,7 +65,7 @@
     "validate-npm-package-name": "^7.0.2",
     "zod": "^3.24.2"
   },
-  
+
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "@tailwindcss/vite": "^4.0.12",

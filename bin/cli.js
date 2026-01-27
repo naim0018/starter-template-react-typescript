@@ -18,6 +18,7 @@ const run = async () => {
       message: "What is the name of your project?",
       initial: "my-app",
       validate: (value) => {
+        if (value === ".") return true;
         const validation = validateNpmName(basename(resolve(value)));
         if (!validation.validForNewPackages) {
           return `Invalid project name: ${validation.errors ? validation.errors.join(', ') : ''} ${validation.warnings ? validation.warnings.join(', ') : ''}`;
@@ -104,14 +105,17 @@ const run = async () => {
   // Install dependencies
   console.log(chalk.blue("Installing dependencies..."));
   
-  const installCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-  const installResult = spawnSync(installCmd, ['install'], { 
+  const installResult = spawnSync('npm', ['install'], { 
     cwd: projectPath, 
-    stdio: 'inherit' 
+    stdio: 'inherit',
+    shell: true
   });
 
   if (installResult.status !== 0) {
       console.error(chalk.red("Failed to install dependencies."));
+      if (installResult.error) {
+        console.error(chalk.red(installResult.error.message));
+      }
       // We don't exit here, just warn, so the user sees the output.
   } else {
       console.log(chalk.green("Dependencies installed successfully."));

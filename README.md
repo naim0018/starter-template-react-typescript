@@ -7,14 +7,18 @@ A premium, production-ready starter template for React applications. Packed with
 Initialize a new project instantly using `npx`:
 
 ```bash
-npx rsp my-new-app
+# Using npx
+npx create-rst my-new-app
+
+# OR using npm init
+npm create rst my-new-app
 ```
 
 Or install globally:
 
 ```bash
-npm install -g rsp
-rsp my-new-app
+npm install -g create-rst
+create-rst my-new-app
 ```
 
 Then navigate to your project and start coding:

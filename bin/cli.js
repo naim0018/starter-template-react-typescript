@@ -1,72 +1,138 @@
 #!/usr/bin/env node
 
-import { execSync } from "child_process";
+import { spawnSync } from "child_process";
 import { existsSync, rmSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import { resolve, basename } from "path";
+import chalk from "chalk";
+import prompts from "prompts";
+import tiged from "tiged";
+import validateNpmName from "validate-npm-package-name";
 
-const projectName = process.argv[2];
-const isCurrentDir = !projectName || projectName === ".";
+const run = async () => {
+  let projectName = process.argv[2];
 
-const projectPath = isCurrentDir
-  ? process.cwd()
-  : resolve(process.cwd(), projectName);
+  if (!projectName) {
+    const response = await prompts({
+      type: "text",
+      name: "projectName",
+      message: "What is the name of your project?",
+      initial: "my-app",
+      validate: (value) => {
+        const validation = validateNpmName(basename(resolve(value)));
+        if (!validation.validForNewPackages) {
+          return `Invalid project name: ${validation.errors ? validation.errors.join(', ') : ''} ${validation.warnings ? validation.warnings.join(', ') : ''}`;
+        }
+        return true;
+      },
+    });
 
-// Safety checks
-if (!isCurrentDir && existsSync(projectPath)) {
-  console.error(`Error: Folder "${projectName}" already exists.`);
-  process.exit(1);
-}
+    if (!response.projectName) {
+      console.log(chalk.red("\nOperation cancelled"));
+      process.exit(1);
+    }
+    projectName = response.projectName;
+  }
 
-if (isCurrentDir && readdirSync(projectPath).length > 0) {
-  console.error("Error: Current directory is not empty.");
-  process.exit(1);
-}
+  const isCurrentDir = projectName === ".";
+  const projectPath = isCurrentDir
+    ? process.cwd()
+    : resolve(process.cwd(), projectName);
+  const appName = isCurrentDir ? basename(projectPath) : projectName;
 
-const GIT_REPO =
-  "https://github.com/naim0018/starter-template-react-typescript.git";
+  // Validation
+  if (!isCurrentDir && existsSync(projectPath)) {
+    if (readdirSync(projectPath).length > 0) {
+        const { overwrite } = await prompts({
+            type: 'confirm',
+            name: 'overwrite',
+            message: `Target directory "${appName}" is not empty. Remove existing files and continue?`,
+        });
 
-const runCommand = (command, cwd = process.cwd()) => {
+        if (!overwrite) {
+            console.log(chalk.red('Operation cancelled'));
+            process.exit(1);
+        }
+        rmSync(projectPath, { recursive: true, force: true });
+    }
+  }
+
+  console.log(chalk.blue(`\nCreating a new React app in ${chalk.bold(projectPath)}...`));
+
+  // Download template using tiged
+  const emitter = tiged("naim0018/starter-template-react-typescript", {
+    disableCache: true,
+    force: true,
+    verbose: false,
+  });
+
   try {
-    execSync(command, { stdio: "inherit", cwd });
-  } catch (err) {
-    console.error(`Command failed: ${command}`);
-    console.error(err.message);
+    await emitter.clone(projectPath);
+  } catch (error) {
+    console.error(chalk.red("Failed to download template:"), error.message);
     process.exit(1);
   }
+
+  console.log(chalk.green("Template downloaded successfully."));
+
+  // Cleanup & Configuration
+  console.log(chalk.blue("Configuring project..."));
+
+  const packageJsonPath = resolve(projectPath, "package.json");
+  const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"));
+
+  // Cleanup: Remove bin
+  delete packageJson.bin;
+  
+  // Cleanup: Remove CLI dependencies (so the user project doesn't have them)
+  const cliDeps = ["tiged", "prompts", "chalk", "validate-npm-package-name"];
+  cliDeps.forEach(dep => {
+      if (packageJson.dependencies && packageJson.dependencies[dep]) delete packageJson.dependencies[dep];
+      if (packageJson.devDependencies && packageJson.devDependencies[dep]) delete packageJson.devDependencies[dep];
+  });
+
+  packageJson.name = appName;
+  packageJson.version = "0.1.0";
+
+  writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+
+  // Remove bin folder
+  const binPath = resolve(projectPath, "bin");
+  if (existsSync(binPath)) {
+    rmSync(binPath, { recursive: true, force: true });
+  }
+
+  // Install dependencies
+  console.log(chalk.blue("Installing dependencies..."));
+  
+  const installCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+  const installResult = spawnSync(installCmd, ['install'], { 
+    cwd: projectPath, 
+    stdio: 'inherit' 
+  });
+
+  if (installResult.status !== 0) {
+      console.error(chalk.red("Failed to install dependencies."));
+      // We don't exit here, just warn, so the user sees the output.
+  } else {
+      console.log(chalk.green("Dependencies installed successfully."));
+  }
+
+  // Success Message
+  console.log(chalk.green(`\nSuccess! Created ${appName} at ${projectPath}`));
+  console.log("\nInside that directory, you can run several commands:\n");
+  console.log(chalk.cyan(`  npm run dev`));
+  console.log("    Starts the development server.\n");
+  console.log(chalk.cyan(`  npm run build`));
+  console.log("    Bundles the app for production.\n");
+  console.log("\nWe suggest that you begin by typing:\n");
+  if (!isCurrentDir) {
+    console.log(chalk.cyan(`  cd ${projectName}`));
+  }
+  console.log(chalk.cyan(`  npm run dev`));
+  console.log("");
 };
 
-// Clone
-console.log("...");
-runCommand(
-  isCurrentDir
-    ? `git clone --quiet ${GIT_REPO} .`
-    : `git clone --quiet ${GIT_REPO} ${projectName}`
-);
-
-console.log("Initializing React Starter Pack...");
-
-// Remove git history safely
-rmSync(resolve(projectPath, ".git"), { recursive: true, force: true });
-
-// Remove bin folder (since it's not needed in the consumer's project)
-rmSync(resolve(projectPath, "bin"), { recursive: true, force: true });
-
-// Update package.json
-console.log("Configuring project...");
-const packageJsonPath = resolve(projectPath, "package.json");
-const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"));
-
-delete packageJson.bin;
-packageJson.name = projectName || basename(projectPath);
-packageJson.version = "0.1.0";
-
-writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-
-// Install deps
-console.log("Installing dependencies...");
-runCommand("npm install", projectPath);
-
-// Success
-console.log("\nProject initialized successfully.");
-console.log("\nNext steps:");
-console.log("  npm run dev");
+run().catch((err) => {
+  console.error(chalk.red("Unexpected error:"), err);
+  process.exit(1);
+});

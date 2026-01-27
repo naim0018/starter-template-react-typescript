@@ -65,6 +65,7 @@
     "validate-npm-package-name": "^7.0.2",
     "zod": "^3.24.2"
   },
+  
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "@tailwindcss/vite": "^4.0.12",

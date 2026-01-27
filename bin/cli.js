@@ -5,7 +5,7 @@ import { existsSync, rmSync, readdirSync, readFileSync, writeFileSync } from "fs
 import { resolve, basename } from "path";
 import chalk from "chalk";
 import prompts from "prompts";
-import tiged from "tiged";
+import { downloadTemplate } from "giget";
 import validateNpmName from "validate-npm-package-name";
 
 const run = async () => {
@@ -59,15 +59,12 @@ const run = async () => {
 
   console.log(chalk.blue(`\nCreating a new React app in ${chalk.bold(projectPath)}...`));
 
-  // Download template using tiged
-  const emitter = tiged("naim0018/starter-template-react-typescript", {
-    disableCache: true,
-    force: true,
-    verbose: false,
-  });
-
+  // Download template using giget
   try {
-    await emitter.clone(projectPath);
+    await downloadTemplate("github:naim0018/starter-template-react-typescript", {
+      dir: projectPath,
+      force: true,
+    });
   } catch (error) {
     console.error(chalk.red("Failed to download template:"), error.message);
     process.exit(1);
@@ -85,7 +82,7 @@ const run = async () => {
   delete packageJson.bin;
   
   // Cleanup: Remove CLI dependencies (so the user project doesn't have them)
-  const cliDeps = ["tiged", "prompts", "chalk", "validate-npm-package-name"];
+  const cliDeps = ["giget", "prompts", "chalk", "validate-npm-package-name"];
   cliDeps.forEach(dep => {
       if (packageJson.dependencies && packageJson.dependencies[dep]) delete packageJson.dependencies[dep];
       if (packageJson.devDependencies && packageJson.devDependencies[dep]) delete packageJson.devDependencies[dep];

@@ -132,7 +132,6 @@ const run = async () => {
   console.log(chalk.cyan(`  npm run dev`));
   console.log("");
 };
-
 run().catch((err) => {
   console.error(chalk.red("Unexpected error:"), err);
   process.exit(1);

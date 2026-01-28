@@ -1,4 +1,4 @@
-# React + TypeScript Starter Pack (RSP)
+# React + TypeScript Starter Template (RST)
 
 A premium, production-ready starter template for React applications. Packed with modern tools like Vite, TypeScript, Tailwind CSS v4, Redux Toolkit, and Framer Motion.
 
@@ -27,6 +27,8 @@ Then navigate to your project and start coding:
 cd my-new-app
 npm run dev
 ```
+
+
 
 ## ✨ Features
 

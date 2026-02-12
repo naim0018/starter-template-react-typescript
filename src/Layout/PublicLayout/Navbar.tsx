@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/hooks/useRedux";
-import { logOut } from "@/store/Slices/AuthSlice/authSlice";
+import { logOut } from "@/store/features/AuthSlice/authSlice";
 import UserAvatar from "@/ui/UserAvatar";
 import NavItems from "./NavItems";
 

@@ -1,19 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
-import Login from "@/pages/Auth/Login";
-import Signup from "@/pages/Auth/Signup";
-import Form from "@/pages/Form";
+import { lazy, Suspense } from "react";
 import { adminRoutes } from "./AdminRoutes";
 import { publicRoutes } from "./PublicRoutes";
-import NotFound from "@/pages/NotFound";
 import { routesGenerator } from "@/utils/Generator/RoutesGenerator";
 import DashboardLayout from "@/Layout/DashboardLayout/DashboardLayout";
-import AdminDashboard from "@/pages/Admin/Dashboard/AdminDashboard";
+
+const App = lazy(() => import("../App"));
+const Login = lazy(() => import("@/pages/Auth/Login"));
+const Signup = lazy(() => import("@/pages/Auth/Signup"));
+const Form = lazy(() => import("@/pages/Form"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+const AdminDashboard = lazy(() => import("@/pages/Admin/Dashboard/AdminDashboard"));
 
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <App />
+      </Suspense>
+    ),
     children: [
       ...routesGenerator(publicRoutes),
       {
@@ -32,7 +38,11 @@ const routes = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <DashboardLayout />,
+    element: (
+      <Suspense fallback={<div>Loading Dashboard...</div>}>
+        <DashboardLayout />
+      </Suspense>
+    ),
     children: [
       {
         index: true,

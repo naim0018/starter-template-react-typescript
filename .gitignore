@@ -22,10 +22,21 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment files
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# AI/Agent directories
 .gemini
-.github
+
+# Docs (internal)
+GUIDE.md
+
+# Temp/scratch files
+*.bat
+file_list.txt
+grep_bat_results.txt

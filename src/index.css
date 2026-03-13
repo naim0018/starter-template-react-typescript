@@ -165,7 +165,7 @@
   }
 
   a {
-    @apply text-primary-blue underline hover:text-dark-blue transition;
+    @apply text-primary-blue hover:text-dark-blue transition;
   }
 }
 

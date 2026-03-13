@@ -78,8 +78,12 @@ const run = async () => {
   const packageJsonPath = resolve(projectPath, "package.json");
   const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"));
 
-  // Cleanup: Remove bin
+  // Cleanup: Remove library-specific fields
   delete packageJson.bin;
+  delete packageJson.files;
+  delete packageJson.repository;
+  delete packageJson.bugs;
+  delete packageJson.homepage;
   
   // Cleanup: Remove CLI dependencies (so the user project doesn't have them)
   const cliDeps = ["giget", "prompts", "chalk", "validate-npm-package-name"];
@@ -90,6 +94,7 @@ const run = async () => {
 
   packageJson.name = appName;
   packageJson.version = "0.1.0";
+  packageJson.description = ""; // Reset description
 
   writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 

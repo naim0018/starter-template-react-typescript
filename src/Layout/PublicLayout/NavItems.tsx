@@ -31,7 +31,7 @@ const NavItems = ({
         child.path
           ? location.pathname === child.path ||
             location.pathname.startsWith(child.path + "/")
-          : false
+          : false,
       );
     }
 
@@ -40,7 +40,7 @@ const NavItems = ({
 
   return (
     <nav className={className}>
-      <ul className="flex gap-4">
+      <ul className={`flex gap-4 ${className}`}>
         {navbarItems.map((item) => {
           const parentActive = isPathActive(item.path, item.children);
 

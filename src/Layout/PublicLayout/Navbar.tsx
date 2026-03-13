@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { logOut } from "@/store/features/AuthSlice/authSlice";
-import UserAvatar from "@/ui/UserAvatar";
+import UserProfile from "@/common/UserProfile";
 import NavItems from "./NavItems";
 
 const Navbar: React.FC = () => {
@@ -31,18 +31,8 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center gap-6">
             <NavItems />
 
-            {/* User menu */}
-            <div className="relative group">
-              <UserAvatar userName="User" />
-              <div className="absolute right-0 mt-2 hidden group-hover:block bg-website-color-darkGray rounded-md shadow-lg">
-                <button
-                  onClick={handleLogout}
-                  className="block w-full px-4 py-2 text-left text-white hover:bg-website-color-lightGray"
-                >
-                  Logout
-                </button>
-              </div>
-            </div>
+            {/* User Profile Dropdown */}
+            <UserProfile />
           </div>
 
           {/* Mobile toggle */}

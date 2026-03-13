@@ -5,6 +5,7 @@ import Home from "@/pages/Public/Home/Home";
 import TableDemo from "@/pages/TableDemo";
 import FormDemo from "@/pages/FormDemo";
 
+
 export const publicRoutes = [
   {
     label: "Home",
@@ -49,4 +50,5 @@ export const publicRoutes = [
     path: "/form-demo",
     element: <FormDemo />,
   },
+
 ];

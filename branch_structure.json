@@ -1,0 +1,24 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "chore-repo-improvements",
+    "cs",
+    "main",
+    "office-edits",
+    "origin"
+  ],
+  "parent": {
+    "chore-repo-improvements": "main",
+    "cs": "main",
+    "main": null,
+    "office-edits": "main",
+    "origin": "main"
+  },
+  "order": [
+    "main",
+    "chore-repo-improvements",
+    "cs",
+    "office-edits",
+    "origin"
+  ]
+}
